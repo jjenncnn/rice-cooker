@@ -11,6 +11,7 @@ TOKEN = os.environ.get("DISCORD_BOT")
 intents = discord.Intents.default()
 intents.message_content = True
 bot = commands.Bot(command_prefix="!", intents=intents)
+
 chars = "https://genshin.jmp.blue/characters/{}"
 weps = "https://genshin.jmp.blue/weapons/{}"
 charpfp = "https://paimon.moe/images/characters/{}.png"
@@ -18,14 +19,34 @@ weapimg = "https://paimon.moe/images/weapons/{}.png"
 artiimg = "https://paimon.moe/images/artifacts/{}_flower.png"
 circlet = "https://paimon.moe/images/artifacts/{}_circlet.png"
 
+ina = "https://static.wikia.nocookie.net/gensin-impact/images/9/9e/Emblem_Inazuma.png/revision/latest?cb=20230127155005"
+ina_big = "https://static.wikia.nocookie.net/gensin-impact/images/4/43/Inazuma_City.png/revision/latest?cb=20220629030636"
+liy = "https://genshin.honeyhunterworld.com/img/acat_5.webp"
+liy_big = "https://static.wikia.nocookie.net/gensin-impact/images/0/0c/Liyue_Harbor.png/revision/latest?cb=20220612170326"
+mon = "https://genshin.honeyhunterworld.com/img/acat_4.webp?x25384"
+mon_big = "https://static.wikia.nocookie.net/gensin-impact/images/d/d6/Mondstadt_City.png/revision/latest?cb=20230810074558"
+sum = "https://www.hoyobuilds.com/img/gi/icon/Emblem_Sumeru_transparent.webp"
+sum_big = "https://static.wikia.nocookie.net/gensin-impact/images/1/11/Sumeru.png/revision/latest?cb=20221123012821"
+
+ane = "https://static.wikia.nocookie.net/gensin-impact/images/1/10/Element_Anemo.svg/revision/latest/scale-to-width-down/100?cb=20220119211128"
+cry = "https://static.wikia.nocookie.net/gensin-impact/images/7/72/Element_Cryo.svg/revision/latest/scale-to-width-down/100?cb=20220119211508"
+den = "https://static.wikia.nocookie.net/gensin-impact/images/7/73/Element_Dendro.svg/revision/latest/scale-to-width-down/100?cb=20220119211226"
+ele = "https://static.wikia.nocookie.net/gensin-impact/images/f/ff/Element_Electro.svg/revision/latest/scale-to-width-down/100?cb=20220119211156"
+geo = "https://static.wikia.nocookie.net/gensin-impact/images/9/9b/Element_Geo.svg/revision/latest/scale-to-width-down/100?cb=20220119211105"
+hyd = "https://static.wikia.nocookie.net/gensin-impact/images/8/80/Element_Hydro.svg/revision/latest/scale-to-width-down/100?cb=20220119211435"
+pyr = "https://static.wikia.nocookie.net/gensin-impact/images/2/2c/Element_Pyro.svg/revision/latest/scale-to-width-down/100?cb=20220119211527"
+
 l1 = ["Dehya", "Lisa", "Nahida", "Nilou"]
 l2 = ["Cyno", "Wanderer", "Traveler"]
+
 s1 = ["Kamisato Ayato", "Dehya", "Freminet", "Kirara", "Layla", "Lynette", "Lyney", "Nahida", "Nilou", "Raiden Shogun", "Sayu", "Wanderer", "Yaoyao", "Zhongli"]
+
 w1 = ["Freedom-Sworn", "Primordial Jade Cutter", "Sword of Descension"]
 w2 = ["Apprentice's Notes", "Beginner's Protector", "Dragon's Bane", "Hunter's Bow", "Hunter's Path", "Lion's Roar", 
       "Sharpshooter's Oath", "Wolf's Gravestone", "Kagura's Verity", "Mouun's Moon", "Wavebreaker's Fin", 
       "Tulaytullah's Remembrance"]
 w3 = ["Old Merc's Pal", "Seasoned Hunter's Bow", "Traveler's Handy Sword"]
+
 a1 = ["Defender's Will", "Gladiator's Finale", "Nymph's Dream", "Shimenawa's Reminiscence", "Vourukasha's Glow", 
       "Wanderer's Troupe"]
 a2 = ["Prayers for Destiny", "Prayers for Illumination", "Prayers for Wisdom", "Prayers to Springtime", 
@@ -40,15 +61,33 @@ async def characters(ctx, *, arg):
     ndash = arg.replace(" ", "-").lower()
     r = requests.get(chars.format(ndash)).text
     res = json.loads(r)
+    clr = 0x000000
+
+    if res['vision'] == "Pyro":
+        clr = 0xea7838
+    elif res['vision'] == "Cryo":
+        clr = 0xa4d6e3
+    elif res['vision'] == "Hydro":
+        clr = 0x5fc1f1
+    elif res['vision'] == "Electro":
+        clr = 0xb38dc1
+    elif res['vision'] == "Geo":
+        clr = 0xf2b723
+    elif res['vision'] == "Dendro":
+        clr = 0x9cc928
+    else:
+        clr = 0x71c2a7
+
+
     if res['rarity'] == 5:
         if res['name'] == "Aloy":
-            embeded = discord.Embed(title="{}    ★★★★★".format(res['name']), description=bulk.aloy_desc)
+            embeded = discord.Embed(title="{}    ★★★★★".format(res['name']), description=bulk.aloy_desc, color=clr)
         elif res['name'] == "Wanderer":
-            embeded = discord.Embed(title="{}    ★★★★★".format(res['name']), description=bulk.wanderer_desc)
+            embeded = discord.Embed(title="{}    ★★★★★".format(res['name']), description=bulk.wanderer_desc, color=clr)
         else:
-            embeded = discord.Embed(title="{}    ★★★★★".format(res['name']), description=res['description'])
+            embeded = discord.Embed(title="{}    ★★★★★".format(res['name']), description=res['description'], color=clr)
     else:
-        embeded = discord.Embed(title="{}    ★★★★".format(res['name']), description=res['description'])
+        embeded = discord.Embed(title="{}    ★★★★".format(res['name']), description=res['description'], color=clr)
 
     chpimg = res['name'].replace(" ", "_").lower()
     embeded.set_thumbnail(url=charpfp.format(chpimg))
@@ -95,15 +134,33 @@ async def skills(ctx, *, arg):
     ndash = arg.replace(" ", "-").lower()
     r = requests.get(chars.format(ndash)).text
     res = json.loads(r)
+
+    clr = 0x000000
+
+    if res['vision'] == "Pyro":
+        clr = 0xea7838
+    elif res['vision'] == "Cryo":
+        clr = 0xa4d6e3
+    elif res['vision'] == "Hydro":
+        clr = 0x5fc1f1
+    elif res['vision'] == "Electro":
+        clr = 0xb38dc1
+    elif res['vision'] == "Geo":
+        clr = 0xf2b723
+    elif res['vision'] == "Dendro":
+        clr = 0x9cc928
+    else:
+        clr = 0x71c2a7
+
     if res['rarity'] == 5:
         if res['name'] == "Aloy":
-            embeded = discord.Embed(title="{}    ★★★★★".format(res['name']), description=bulk.aloy_desc)
+            embeded = discord.Embed(title="{}    ★★★★★".format(res['name']), description=bulk.aloy_desc, color=clr)
         elif res['name'] == "Wanderer":
-            embeded = discord.Embed(title="{}    ★★★★★".format(res['name']), description=bulk.wanderer_desc)
+            embeded = discord.Embed(title="{}    ★★★★★".format(res['name']), description=bulk.wanderer_desc, color=clr)
         else:
-            embeded = discord.Embed(title="{}    ★★★★★".format(res['name']), description=res['description'])
+            embeded = discord.Embed(title="{}    ★★★★★".format(res['name']), description=res['description'], color=clr)
     else:
-        embeded = discord.Embed(title="{}    ★★★★".format(res['name']), description=res['description'])
+        embeded = discord.Embed(title="{}    ★★★★".format(res['name']), description=res['description'], color=clr)
     
     chpimg = res['name'].replace(" ", "_").lower()
     embeded.set_thumbnail(url=charpfp.format(chpimg))
@@ -207,15 +264,32 @@ async def cons(ctx, *, arg):
     r = requests.get(chars.format(arg)).text
     res = json.loads(r)
 
+    clr = 0x000000
+
+    if res['vision'] == "Pyro":
+        clr = 0xea7838
+    elif res['vision'] == "Cryo":
+        clr = 0xa4d6e3
+    elif res['vision'] == "Hydro":
+        clr = 0x5fc1f1
+    elif res['vision'] == "Electro":
+        clr = 0xb38dc1
+    elif res['vision'] == "Geo":
+        clr = 0xf2b723
+    elif res['vision'] == "Dendro":
+        clr = 0x9cc928
+    else:
+        clr = 0x71c2a7
+
     if res['rarity'] == 5:
         if res['name'] == "Aloy":
-            embeded = discord.Embed(title="{}    ★★★★★".format(res['name']), description=bulk.aloy_desc)
+            embeded = discord.Embed(title="{}    ★★★★★".format(res['name']), description=bulk.aloy_desc, color=clr)
         elif res['name'] == "Wanderer":
-            embeded = discord.Embed(title="{}    ★★★★★".format(res['name']), description=bulk.wanderer_desc)
+            embeded = discord.Embed(title="{}    ★★★★★".format(res['name']), description=bulk.wanderer_desc, color=clr)
         else:
-            embeded = discord.Embed(title="{}    ★★★★★".format(res['name']), description=res['description'])
+            embeded = discord.Embed(title="{}    ★★★★★".format(res['name']), description=res['description'], color=clr)
     else:
-        embeded = discord.Embed(title="{}    ★★★★".format(res['name']), description=res['description'])
+        embeded = discord.Embed(title="{}    ★★★★".format(res['name']), description=res['description'], color=clr)
 
     charimg = res['name'].replace(" ", "_").lower()
     embeded.set_thumbnail(url=charpfp.format(charimg))
@@ -232,15 +306,15 @@ async def weapons(ctx, *, arg):
     res = json.loads(r)
 
     if res['rarity'] == 5:
-        embeded = discord.Embed(title="{}    ★★★★★".format(res['name']), description=res['passiveDesc'])
+        embeded = discord.Embed(title="{}    ★★★★★".format(res['name']), description=res['passiveDesc'], color=0xd49548)
     elif res['rarity'] == 4:
-        embeded = discord.Embed(title="{}    ★★★★".format(res['name']), description=res['passiveDesc'])
+        embeded = discord.Embed(title="{}    ★★★★".format(res['name']), description=res['passiveDesc'], color=0x935c9d)
     elif res['rarity'] == 3:
-        embeded = discord.Embed(title="{}    ★★★".format(res['name']), description=res['passiveDesc'])
+        embeded = discord.Embed(title="{}    ★★★".format(res['name']), description=res['passiveDesc'], color=0x5d839a)
     elif res['rarity'] == 2:
-        embeded = discord.Embed(title="{}    ★★".format(res['name']), description=res['passiveDesc'])
+        embeded = discord.Embed(title="{}    ★★".format(res['name']), description=res['passiveDesc'], color=0x5d8771)
     else:
-        embeded = discord.Embed(title="{}    ★".format(res['name']), description=res['passiveDesc'])
+        embeded = discord.Embed(title="{}    ★".format(res['name']), description=res['passiveDesc'], color=0x7f7d81)
     
     if res['name']in w2:
         weapons = res['name'].replace("'s ", "s_").lower()
@@ -273,15 +347,11 @@ async def artifacts(ctx, *, arg):
     res = json.loads(r)
 
     if res['max_rarity'] == 5:
-        embeded = discord.Embed(title="{}    ★★★★★".format(res['name']))
+        embeded = discord.Embed(title="{}    ★★★★★".format(res['name']), color=0xd49548)
     elif res['max_rarity'] == 4:
-        embeded = discord.Embed(title="{}    ★★★★".format(res['name']))
-    elif res['max_rarity'] == 3:
-        embeded = discord.Embed(title="{}    ★★★".format(res['name']))
-    elif res['max_rarity'] == 2:
-        embeded = discord.Embed(title="{}    ★★".format(res['name']))
+        embeded = discord.Embed(title="{}    ★★★★".format(res['name']), color=0x935c9d)
     else:
-        embeded = discord.Embed(title="{}    ★".format(res['name']))
+        embeded = discord.Embed(title="{}    ★★★".format(res['name']), color=0x5d839a)
 
     if res['name'] in a1:
         artifacts = res['name'].replace("'s ", "s_").lower()
@@ -299,6 +369,77 @@ async def artifacts(ctx, *, arg):
         embeded.add_field(name="2-Piece Bonus", value=res['2-piece_bonus'], inline=False)
         embeded.add_field(name="4-Piece Bonus", value=res['4-piece_bonus'], inline=False)
     
+    await ctx.send(embed=embeded)
+
+@bot.command()
+async def nations(ctx, *, arg):
+    arg = arg.replace(" ", "-").lower()
+    r = requests.get("https://genshin.jmp.blue/nations/{}".format(arg)).text
+    res = json.loads(r)
+
+    if res['name'] == "Inazuma":
+        embeded = discord.Embed(title="{}".format(res['name']), description=bulk.inazuma, color=0xb38dc1)
+        embeded.set_thumbnail(url=ina)
+        embeded.set_image(url=ina_big)
+    elif res['name'] == "Liyue":
+        embeded = discord.Embed(title="{}".format(res['name']), description=bulk.liyue, color=0xf2b723)
+        embeded.set_thumbnail(url=liy)
+        embeded.set_image(url=liy_big)
+    elif res['name'] == "Mondstadt":
+        embeded = discord.Embed(title="{}".format(res['name']), description=bulk.mondstadt, color=0x71c2a7)
+        embeded.set_thumbnail(url=mon)
+        embeded.set_image(url=mon_big)
+    else:
+        embeded = discord.Embed(title="{}".format(res['name']), description=bulk.sumeru, color=0x9cc928)
+        embeded.set_thumbnail(url=sum)
+        embeded.set_image(url=sum_big)
+
+    embeded.add_field(name="Element", value=res['element'], inline=True)
+    embeded.add_field(name="Archon", value=res['archon'], inline=True)
+    embeded.add_field(name="Controlling Entity", value=res['controllingEntity'], inline=True)
+
+    await ctx.send(embed=embeded)
+
+@bot.command()
+async def elements(ctx, *, arg):
+    arg = arg.replace(" ", "-").lower()
+    r = requests.get("https://genshin.jmp.blue/elements/{}".format(arg)).text
+    res = json.loads(r)
+
+    if res['name'] == "Anemo":
+        embeded = discord.Embed(title="{}".format(res['name']), description=bulk.anemo, color=0x71c2a7)
+        embeded.set_thumbnail(url=ane)
+        
+    elif res['name'] == "Cryo":
+        embeded = discord.Embed(title="{}".format(res['name']), description=bulk.cryo, color=0xa4d6e3)
+        embeded.set_thumbnail(url=cry)
+
+    elif res['name'] == "Dendro":
+        embeded = discord.Embed(title="{}".format(res['name']), description=bulk.dendro, color=0x9cc928)
+        embeded.set_thumbnail(url=den)
+
+    elif res['name'] == "Electro":
+        embeded = discord.Embed(title="{}".format(res['name']), description=bulk.electro, color=0xb38dc1)
+        embeded.set_thumbnail(url=ele)
+
+    elif res['name'] == "Geo":
+        embeded = discord.Embed(title="{}".format(res['name']), description=bulk.geo, color=0xf2b723)
+        embeded.set_thumbnail(url=geo)
+
+    elif res['name'] == "Hydro":
+        embeded = discord.Embed(title="{}".format(res['name']), description=bulk.hydro, color=0x5fc1f1)
+        embeded.set_thumbnail(url=hyd)
+
+    else:
+        embeded = discord.Embed(title="{}".format(res['name']), description=bulk.pyro, color=0xea7838)
+        embeded.set_thumbnail(url=pyr)
+
+    for i in res['reactions']:
+            embeded.add_field(name="{} - {}".format(i['name'], i['elements']), value=i['description'], inline = False)
+
+    #if res['name'] == "Dendro" or "Hydro" or "Electro":
+        
+
     await ctx.send(embed=embeded)
     
 bot.run(TOKEN)
