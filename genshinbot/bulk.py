@@ -1,6 +1,18 @@
 #********CHARACTER DESCRIPTIONS********
-aloy_desc = "Formerly an outcast, now a hunter of unparalleled skill. Ready to do the right thing at any time."
-wanderer_desc = "A wayfaring figure whose identity is a mystery. He dresses like a mountain ascetic, but he certainly does not act the part."
+char_desc = {"Aloy": "Formerly an outcast, now a hunter of unparalleled skill. Ready to do the right thing at any time.",
+             "Wanderer": "A wayfaring figure whose identity is a mystery. He dresses like a mountain ascetic, but he certainly does not act the part."}
+
+char_title = {"Collei": "Sprout of Rebirth", 
+                   "Traveler": "Outlander"}
+
+char_gender = {"Dehya": "Female", "Lisa": "Female", "Nahida": "Female", "Nilou": "Female", 
+                    "Cyno": "Male", "Wanderer": "Male", 
+                    "Traveler": "Chosen by Player"}
+
+char_aff = {"Chongyun": "Tianheng Thaumaturges", 
+            "Xinyan": "The Red Strings", 
+            "Shenhe": "Cloud Retainer's Abode", 
+            "Yanfei": "Yanfei Legal Consultancy"}
 
 #********SKILLS********
 ayato_skill_1 = "Kamisato Ayato shifts positions and enters the Takimeguri Kanka state. After this shift, he will leave a watery illusion at his original location. After it is formed, the watery illusion will explode if opponents are nearby or after its duration ends, dealing AoE Hydro DMG\n"
@@ -66,41 +78,48 @@ zhongli_skill_3 = "Stone Stele\nWhen created, deals AoE Geo DMG.\nAdditionally, 
 zhongli_skill_4 = "Jade Shield\nPossesses 150% DMG Absorption against all Elemental and Physical DMG.\nCharacters protected by the Jade Shield will decrease the Elemental RES and Physical RES of opponents in a small AoE by 20%. This effect cannot be stacked."
 
 #********NATIONS********
-mondstadt = "A city of freedom that lies in the northeast of Teyvat.\nFrom amongst mountains and wide-open plains, carefree breezes carry the scent of dandelions — a gift from the Anemo God, Barbatos — across Cider Lake to Mondstadt, which sits on an island in the middle of the lake."
-liyue = "A bountiful harbor that lies in the east of Teyvat.\nMountains stand tall and proud alongside the stone forest, that, together with the open plains and lively rivers, make up Liyue's bountiful landscape, which shows its unique beauty through each of the four seasons. Just how many gifts from the Geo God lie in wait amongst the rocks of Liyue's mountains?"
-inazuma = "An Isolated Archipelago Far East of Teyvat.\nOvercome endless thunderstorms and set foot on the islands of red maple and cherry blossoms. On winding shores and towering cliffs, and in forests and mountains full of secrets, witness the Eternity pursued by Her Excellency, the Almighty Narukami Ogosho."
-sumeru = "The city of scholars located in the west-central part of Teyvat.\nA fantastical nation of both lush rainforest and barren desert, where countless fruits of wisdom grow and are buried. Whether Travelers travel from afar through the forest to reach the academy city or delve deep into the desert to discover the historical ruins of the red desert, a wealth of valuable knowledge awaits them here."
+nations_dict = {"Mondstadt": "A city of freedom that lies in the northeast of Teyvat.\nFrom amongst mountains and wide-open plains, carefree breezes carry the scent of dandelions — a gift from the Anemo God, Barbatos — across Cider Lake to Mondstadt, which sits on an island in the middle of the lake.", 
+                "Liyue": "A bountiful harbor that lies in the east of Teyvat.\nMountains stand tall and proud alongside the stone forest, that, together with the open plains and lively rivers, make up Liyue's bountiful landscape, which shows its unique beauty through each of the four seasons. Just how many gifts from the Geo God lie in wait amongst the rocks of Liyue's mountains?", 
+                "Inazuma": "An Isolated Archipelago Far East of Teyvat.\nOvercome endless thunderstorms and set foot on the islands of red maple and cherry blossoms. On winding shores and towering cliffs, and in forests and mountains full of secrets, witness the Eternity pursued by Her Excellency, the Almighty Narukami Ogosho.", 
+                "Sumeru": "The city of scholars located in the west-central part of Teyvat.\nA fantastical nation of both lush rainforest and barren desert, where countless fruits of wisdom grow and are buried. Whether Travelers travel from afar through the forest to reach the academy city or delve deep into the desert to discover the historical ruins of the red desert, a wealth of valuable knowledge awaits them here."}
+
 
 
 #********ELEMENTS********
-anemo = "The name Anemo comes from the prefix for words related to wind, \"anemo-,\" which derives from the Ancient Greek word for wind (Ancient Greek: ἄνεμος ánemos).\n\- Genshin Impact Wiki"
-cryo = "The name Cryo comes from the prefix for words related to freezing or ice, \"cryo-,\" which derives from the Ancient Greek word for icy cold, frost, chill (Ancient Greek: κρύος krúos).\n\- Genshin Impact Wiki"
-dendro = "The name Dendro comes from the prefix used in biology for scientific names related to trees or plants, \"dendro-,\" which derives from the Ancient Greek word for tree (Ancient Greek: δένδρον déndron).\n\- Genshin Impact Wiki"
-electro = "The name Electro comes from the prefix for words related to electricity, \"electro-,\" which derives from the Ancient Greek word for amber (Ancient Greek: ἤλεκτρον ḗlektron) (a natural resin, which — when rubbed — produces static electricity).\n\- Genshin Impact Wiki"
-geo = "The name Geo comes from the prefix for words related to the Earth, \"geo-,\" which derives from the Ancient Greek word for earth (Ancient Greek: γῆ gê).\n\- Genshin Impact Wiki"
-hydro = "The name Hydro comes from the prefix for words related to water, \"hydro-,\" which derives from the Ancient Greek prefix for words related to water (Ancient Greek: υδρο- ydro-) which in turn derives from the Ancient Greek word for water (Ancient Greek: ὕδωρ húdōr).\n\- Genshin Impact Wiki"
-pyro = "The name Pyro comes from the prefix for words related to fire, \"pyro-,\" which derives from the Ancient Greek word for fire (Ancient Greek: πῦρ pûr).\n\- Genshin Impact Wiki"
-bloom = "When creatures are affected by Hydro and Dendro, the Bloom reaction will be triggered, creating Dendro Cores. Only a certain number of Dendro Cores can exist at the same time. If new ones are created once this limit is reached, or if the duration of the existing Dendro Cores ends, the pre-existing Dendro Cores will burst, dealing AoE Dendro DMG..."
-burgeon = "When Dendro Cores come into contact with Pyro, they will trigger Burgeon, causing even greater AoE Dendro DMG."
-hyperbloom = "When Dendro Cores come into contact with Electro, they will trigger Hyperbloom and transform into homing Sprawling Shots."
-catalyze = "When creatures are affected by Electro and Dendro, Quicken will occur, which will render them Quickened. When Quickened creatures are affected by Electro or Dendro attacks, the Aggravate or Spread reactions will occur respectively, causing them to take additional DMG."
+elements_dict = {"Anemo": "The name Anemo comes from the prefix for words related to wind, \"anemo-,\" which derives from the Ancient Greek word for wind (Ancient Greek: ἄνεμος ánemos).\n\- Genshin Impact Wiki", 
+                 "Cryo": "The name Cryo comes from the prefix for words related to freezing or ice, \"cryo-,\" which derives from the Ancient Greek word for icy cold, frost, chill (Ancient Greek: κρύος krúos).\n\- Genshin Impact Wiki", 
+                 "Dendro": "The name Dendro comes from the prefix used in biology for scientific names related to trees or plants, \"dendro-,\" which derives from the Ancient Greek word for tree (Ancient Greek: δένδρον déndron).\n\- Genshin Impact Wiki", 
+                 "Electro": "The name Electro comes from the prefix for words related to electricity, \"electro-,\" which derives from the Ancient Greek word for amber (Ancient Greek: ἤλεκτρον ḗlektron) (a natural resin, which — when rubbed — produces static electricity).\n\- Genshin Impact Wiki", 
+                 "Geo": "The name Geo comes from the prefix for words related to the Earth, \"geo-,\" which derives from the Ancient Greek word for earth (Ancient Greek: γῆ gê).\n\- Genshin Impact Wiki", 
+                 "Hydro": "The name Hydro comes from the prefix for words related to water, \"hydro-,\" which derives from the Ancient Greek prefix for words related to water (Ancient Greek: υδρο- ydro-) which in turn derives from the Ancient Greek word for water (Ancient Greek: ὕδωρ húdōr).\n\- Genshin Impact Wiki", 
+                 "Pyro": "The name Pyro comes from the prefix for words related to fire, \"pyro-,\" which derives from the Ancient Greek word for fire (Ancient Greek: πῦρ pûr).\n\- Genshin Impact Wiki", 
+                 "Bloom": "When creatures are affected by Hydro and Dendro, the Bloom reaction will be triggered, creating Dendro Cores. Only a certain number of Dendro Cores can exist at the same time. If new ones are created once this limit is reached, or if the duration of the existing Dendro Cores ends, the pre-existing Dendro Cores will burst, dealing AoE Dendro DMG...", 
+                 "Burgeon": "When Dendro Cores come into contact with Pyro, they will trigger Burgeon, causing even greater AoE Dendro DMG.", 
+                 "Hyperbloom": "When Dendro Cores come into contact with Electro, they will trigger Hyperbloom and transform into homing Sprawling Shots.", 
+                 "Catalyze": "When creatures are affected by Electro and Dendro, Quicken will occur, which will render them Quickened. When Quickened creatures are affected by Electro or Dendro attacks, the Aggravate or Spread reactions will occur respectively, causing them to take additional DMG."}
 
 #********ENEMIES********
-abyss_herald = "Abyss Heralds are an elite enemy group part of the Abyss Order and who are capable of manipulating intense abyssal energy. They are melee counterparts to Abyss Lectors, though they also have some ranged attacks at their disposal.\n\- Genshin impact Wiki"
-cicin = "Cicins are Common Enemies found across Teyvat. They appear as small bat-like creatures.\n\- Genshin Impact Wiki"
-consecrated_beast = "Consecrated Beasts are an elite enemy group. While the majority can be found in Sumeru, they can also be found in Inazuma and Fontaine.\n\nThey are wildlife that have grown larger and stronger as a result of mutations from eating greater lifeforms, such as gods and surviving the highly painful process. As a result of being unable to fully consume said lifeforms, they have grown bone-like features across their bodies.\n\- Genshin Impact Wiki"
-defense_mechanism = "The Defense Mechanism is a Unique Enemy found in Dragonspine.\n\nIt resembles a spherical automaton with a petal-like head, and a tail on its back. It is similar to the sign on the door of a Domain. When inactive, they fold their petals and lie on the ground.\n\- Genshin Impact Wiki"
-floating_fungus = "Floating Fungi are Common Enemies that are part of the Fungi enemy group and the Mystical Beasts family.\n\- Genshin Impact Wiki"
-grounded_shroom = "Grounded Fungi are Common Enemies that are part of the Fungi enemy group and the Mystical Beasts family.\n\- Genshin Impact Wiki"
-hilichurl_shooter = "Hilichurl Shooters are Common Enemies that are part of the Hilichurl Shooters enemy group and the Hilichurls family.\n\- Genshin Impact Wiki"
-kairagi = "Kairagi (Japanese: 海かい乱ら鬼ぎ Kairagi), are a type of Nobushi.\n\- Genshin Impact Wiki"
-primal_construct = "Primal Constructs are an elite enemy group. As leftover technology of King Deshret's civilization, they are primarily found across the Great Red Sand.\n\-Genshin Impact Wiki"
-ruin_drake = "Ruin Drakes are an enemy group found in Sumeru and Fontaine. As their name indicates, their appearance and abilities of these Ruin Machines are inspired by dragons and vishaps.\n\- Genshin Impact Wiki"
-ruin_sentinel = "Ruin Sentinel is an enemy group of Automatons found in the regions of Inazuma, Enkanomiya, The Chasm: Underground Mines, and Sumeru and are usually found in groups. They are designed to mimic different organisms found in Teyvat.\n\- Genshin Impact Wiki"
-winged_shroom = "Winged Cryoshrooms are Common Enemies that are part of the Fungi enemy group and the Mystical Beasts family.\n\- Genshin Impact Wiki"
-samachurl = "Samachurls are shamans and spiritual leaders of Hilichurl tribes.\n\-Genshin Impact Wiki"
-treasure_hoarder = "The Treasure Hoarders are a gang of bandits who search for treasures to obtain and are located all around Teyvat.\n\- Genshin Impact Wiki"
-snowboar_king = "A special enemy and miniboss in Dragonspine, located to the East of Entombed City - Ancient Palace, south of the word 'Ancient' on the map, and is part of the 'Ah, Fresh Meat!' World Quest\n\- Genshin Impact Wiki"
-eremites = "A group of people who hail from Sumeru's desert region. Most of them are mercenaries by trade and conduct business across Teyvat.\n\- Genshin Impact Wiki"
-whirling_fungus = "Whirling Fungi are Common Enemies that are part of the Fungi enemy group and the Mystical Beasts family.\n\- Genshin Impact Wiki"
-stretchy_fungus = "Stretchy Geo Fungi are Common Enemies that are part of the Fungi enemy group and the Mystical Beasts family.\n\- Genshin Impact Wiki"
+enemy_dict = {"Abyss Heralds": "Abyss Heralds are an elite enemy group part of the Abyss Order and who are capable of manipulating intense abyssal energy. They are melee counterparts to Abyss Lectors, though they also have some ranged attacks at their disposal.\n\- Genshin impact Wiki", 
+              "Cicin": "Cicins are Common Enemies found across Teyvat. They appear as small bat-like creatures.\n\- Genshin Impact Wiki", 
+              "Consecrated Beast": "Consecrated Beasts are an elite enemy group. While the majority can be found in Sumeru, they can also be found in Inazuma and Fontaine.\n\nThey are wildlife that have grown larger and stronger as a result of mutations from eating greater lifeforms, such as gods and surviving the highly painful process. As a result of being unable to fully consume said lifeforms, they have grown bone-like features across their bodies.\n\- Genshin Impact Wiki", 
+              "Defense Mechanism": "The Defense Mechanism is a Unique Enemy found in Dragonspine.\n\nIt resembles a spherical automaton with a petal-like head, and a tail on its back. It is similar to the sign on the door of a Domain. When inactive, they fold their petals and lie on the ground.\n\- Genshin Impact Wiki", 
+              "Floating Fungus": "Floating Fungi are Common Enemies that are part of the Fungi enemy group and the Mystical Beasts family.\n\- Genshin Impact Wiki", 
+              "Grounded Shroom": "Grounded Fungi are Common Enemies that are part of the Fungi enemy group and the Mystical Beasts family.\n\- Genshin Impact Wiki", 
+              "Hilichurl Shooter": "Hilichurl Shooters are Common Enemies that are part of the Hilichurl Shooters enemy group and the Hilichurls family.\n\- Genshin Impact Wiki", 
+              "Kairagi": "Kairagi (Japanese: 海かい乱ら鬼ぎ Kairagi), are a type of Nobushi.\n\- Genshin Impact Wiki", 
+              "Primal Construct": "Primal Constructs are an elite enemy group. As leftover technology of King Deshret's civilization, they are primarily found across the Great Red Sand.\n\-Genshin Impact Wiki",
+              "Ruin Drake": "Ruin Drakes are an enemy group found in Sumeru and Fontaine. As their name indicates, their appearance and abilities of these Ruin Machines are inspired by dragons and vishaps.\n\- Genshin Impact Wiki", 
+              "Ruin Sentinel": "Ruin Sentinel is an enemy group of Automatons found in the regions of Inazuma, Enkanomiya, The Chasm: Underground Mines, and Sumeru and are usually found in groups. They are designed to mimic different organisms found in Teyvat.\n\- Genshin Impact Wiki", 
+              "Winged Shroom": "Winged Cryoshrooms are Common Enemies that are part of the Fungi enemy group and the Mystical Beasts family.\n\- Genshin Impact Wiki", 
+              "Samachurl": "Samachurls are shamans and spiritual leaders of Hilichurl tribes.\n\-Genshin Impact Wiki", 
+              "Treasure Hoarder": "The Treasure Hoarders are a gang of bandits who search for treasures to obtain and are located all around Teyvat.\n\- Genshin Impact Wiki", 
+              "The Great Snowboar King": "A special enemy and miniboss in Dragonspine, located to the East of Entombed City - Ancient Palace, south of the word 'Ancient' on the map, and is part of the 'Ah, Fresh Meat!' World Quest\n\- Genshin Impact Wiki", 
+              "The Eremite": "A group of people who hail from Sumeru's desert region. Most of them are mercenaries by trade and conduct business across Teyvat.\n\- Genshin Impact Wiki", 
+              "Whirling Fungus": "Whirling Fungi are Common Enemies that are part of the Fungi enemy group and the Mystical Beasts family.\n\- Genshin Impact Wiki", 
+              "Stretchy Fungus": "Stretchy Geo Fungi are Common Enemies that are part of the Fungi enemy group and the Mystical Beasts family.\n\- Genshin Impact Wiki"}
+
+#********RARITY********
+rarity_dict = {5: "★★★★★", 4: "★★★★", 3: "★★★", 2: "★★", 1: "★"}
+
+colors_dict = {5: 0xd49548, 4: 0x935c9d, 3: 0x5d839a, 2: 0x5d8771, 1: 0x7f7d81, 
+               "Pyro": 0xea7838, "Cryo": 0xa4d6e3, "Electro": 0xb38dc1, "Geo": 0xf2b723, "Dendro": 0x9cc928, "Hydro": 0x5fc1f1, "Anemo": 0x71c2a7}

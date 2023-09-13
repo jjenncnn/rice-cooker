@@ -4,7 +4,7 @@ import requests
 import json
 from dotenv import load_dotenv
 from discord.ext import commands
-import bulk
+import bulk 
 import links
 
 load_dotenv()
@@ -12,10 +12,6 @@ TOKEN = os.environ.get("DISCORD_BOT")
 intents = discord.Intents.default()
 intents.message_content = True
 bot = commands.Bot(command_prefix="!", intents=intents)
-
-
-l1 = ["Dehya", "Lisa", "Nahida", "Nilou"]
-l2 = ["Cyno", "Wanderer", "Traveler"]
 
 s1 = ["Kamisato Ayato", "Dehya", "Freminet", "Kirara", "Layla", "Lynette", "Lyney", "Nahida", "Nilou", "Raiden Shogun", "Sayu", "Wanderer", "Yaoyao", "Zhongli"]
 
@@ -39,66 +35,32 @@ async def characters(ctx, *, arg):
     ndash = arg.replace(" ", "-").lower()
     r = requests.get(links.chars.format(ndash)).text
     res = json.loads(r)
-    clr = 0x000000
 
-    if res['vision'] == "Pyro":
-        clr = 0xea7838
-    elif res['vision'] == "Cryo":
-        clr = 0xa4d6e3
-    elif res['vision'] == "Hydro":
-        clr = 0x5fc1f1
-    elif res['vision'] == "Electro":
-        clr = 0xb38dc1
-    elif res['vision'] == "Geo":
-        clr = 0xf2b723
-    elif res['vision'] == "Dendro":
-        clr = 0x9cc928
+    if res['name'] in bulk.char_desc:
+        embeded = discord.Embed(title="{}    {}".format(res['name'], bulk.rarity_dict[res['rarity']]), description=bulk.char_desc[res['name']], color=bulk.colors_dict[res['vision']])
     else:
-        clr = 0x71c2a7
-
-
-    if res['rarity'] == 5:
-        if res['name'] == "Aloy":
-            embeded = discord.Embed(title="{}    ★★★★★".format(res['name']), description=bulk.aloy_desc, color=clr)
-        elif res['name'] == "Wanderer":
-            embeded = discord.Embed(title="{}    ★★★★★".format(res['name']), description=bulk.wanderer_desc, color=clr)
-        else:
-            embeded = discord.Embed(title="{}    ★★★★★".format(res['name']), description=res['description'], color=clr)
-    else:
-        embeded = discord.Embed(title="{}    ★★★★".format(res['name']), description=res['description'], color=clr)
+        embeded = discord.Embed(title="{}    {}".format(res['name'], bulk.rarity_dict[res['rarity']]), description=res['description'], color=bulk.colors_dict[res['vision']])
 
     chpimg = res['name'].replace(" ", "_").lower()
     embeded.set_thumbnail(url=links.charpfp.format(chpimg))
     
-    if res['name']=="Collei":
-        embeded.add_field(name="Title", value="Sprout of Rebirth", inline=True)
-    elif res['name']=="Traveler":
-        embeded.add_field(name="Title", value="Outlander", inline=True)
+    if res['name'] in bulk.char_title:
+        embeded.add_field(name="Title", value=bulk.char_title[res['name']], inline=True)
     else:
         embeded.add_field(name="Title", value=res['title'], inline=True)
 
     embeded.add_field(name="Vision", value=res['vision'], inline=True)
     embeded.add_field(name="Weapon", value=res['weapon'], inline=True)
     
-    if res['name'] in l2:
-        embeded.add_field(name="Gender", value="Male", inline=True)
-    elif res['name'] in l1:
-        embeded.add_field(name="Gender", value="Female", inline=True)
-    elif res['name']=="Traveler":
-        embeded.add_field(name="Gender", value="Chosen by player", inline=True)
+    if res['name'] in bulk.char_gender:
+        embeded.add_field(name="Gender", value=bulk.char_gender[res['name']], inline=True)
     else:
         embeded.add_field(name="Gender", value=res['gender'], inline=True)
 
     embeded.add_field(name="Nation", value=res['nation'], inline=True)
 
-    if res['name']=="Chongyun":
-        embeded.add_field(name="Affiliation", value="Tianheng Thaumaturges", inline=True)
-    elif res['name']=="Xinyan":
-        embeded.add_field(name="Affiliation", value="The Red Strings", inline=True)
-    elif res['name']=="Shenhe":
-        embeded.add_field(name="Affiliation", value="Cloud Retainer's Abode", inline=True)
-    elif res['name']=="Yanfei":
-        embeded.add_field(name="Affiliation", value="Yanfei Legal Consultancy", inline=True)
+    if res['name'] in bulk.char_aff:
+        embeded.add_field(name="Affiliation", value=bulk.char_aff[res['name']], inline=True)
     else:
         embeded.add_field(name="Affiliation", value=res['affiliation'], inline=True)
 
@@ -113,32 +75,10 @@ async def skills(ctx, *, arg):
     r = requests.get(links.chars.format(ndash)).text
     res = json.loads(r)
 
-    clr = 0x000000
-
-    if res['vision'] == "Pyro":
-        clr = 0xea7838
-    elif res['vision'] == "Cryo":
-        clr = 0xa4d6e3
-    elif res['vision'] == "Hydro":
-        clr = 0x5fc1f1
-    elif res['vision'] == "Electro":
-        clr = 0xb38dc1
-    elif res['vision'] == "Geo":
-        clr = 0xf2b723
-    elif res['vision'] == "Dendro":
-        clr = 0x9cc928
+    if res['name'] in bulk.char_desc:
+        embeded = discord.Embed(title="{}    {}".format(res['name'], bulk.rarity_dict[res['rarity']]), description=bulk.char_desc[res['name']], color=bulk.colors_dict[res['vision']])
     else:
-        clr = 0x71c2a7
-
-    if res['rarity'] == 5:
-        if res['name'] == "Aloy":
-            embeded = discord.Embed(title="{}    ★★★★★".format(res['name']), description=bulk.aloy_desc, color=clr)
-        elif res['name'] == "Wanderer":
-            embeded = discord.Embed(title="{}    ★★★★★".format(res['name']), description=bulk.wanderer_desc, color=clr)
-        else:
-            embeded = discord.Embed(title="{}    ★★★★★".format(res['name']), description=res['description'], color=clr)
-    else:
-        embeded = discord.Embed(title="{}    ★★★★".format(res['name']), description=res['description'], color=clr)
+        embeded = discord.Embed(title="{}    {}".format(res['name'], bulk.rarity_dict[res['rarity']]), description=res['description'], color=bulk.colors_dict[res['vision']])
     
     chpimg = res['name'].replace(" ", "_").lower()
     embeded.set_thumbnail(url=links.charpfp.format(chpimg))
@@ -242,32 +182,10 @@ async def cons(ctx, *, arg):
     r = requests.get(links.chars.format(arg)).text
     res = json.loads(r)
 
-    clr = 0x000000
-
-    if res['vision'] == "Pyro":
-        clr = 0xea7838
-    elif res['vision'] == "Cryo":
-        clr = 0xa4d6e3
-    elif res['vision'] == "Hydro":
-        clr = 0x5fc1f1
-    elif res['vision'] == "Electro":
-        clr = 0xb38dc1
-    elif res['vision'] == "Geo":
-        clr = 0xf2b723
-    elif res['vision'] == "Dendro":
-        clr = 0x9cc928
+    if res['name'] in bulk.char_desc:
+        embeded = discord.Embed(title="{}    {}".format(res['name'], bulk.rarity_dict[res['rarity']]), description=bulk.char_desc[res['name']], color=bulk.colors_dict[res['vision']])
     else:
-        clr = 0x71c2a7
-
-    if res['rarity'] == 5:
-        if res['name'] == "Aloy":
-            embeded = discord.Embed(title="{}    ★★★★★".format(res['name']), description=bulk.aloy_desc, color=clr)
-        elif res['name'] == "Wanderer":
-            embeded = discord.Embed(title="{}    ★★★★★".format(res['name']), description=bulk.wanderer_desc, color=clr)
-        else:
-            embeded = discord.Embed(title="{}    ★★★★★".format(res['name']), description=res['description'], color=clr)
-    else:
-        embeded = discord.Embed(title="{}    ★★★★".format(res['name']), description=res['description'], color=clr)
+        embeded = discord.Embed(title="{}    {}".format(res['name'], bulk.rarity_dict[res['rarity']]), description=res['description'], color=bulk.colors_dict[res['vision']])
 
     charimg = res['name'].replace(" ", "_").lower()
     embeded.set_thumbnail(url=links.charpfp.format(charimg))
@@ -283,16 +201,7 @@ async def weapons(ctx, *, arg):
     r = requests.get("https://genshin.jmp.blue/weapons/{}".format(arg)).text
     res = json.loads(r)
 
-    if res['rarity'] == 5:
-        embeded = discord.Embed(title="{}    ★★★★★".format(res['name']), description=res['passiveDesc'], color=0xd49548)
-    elif res['rarity'] == 4:
-        embeded = discord.Embed(title="{}    ★★★★".format(res['name']), description=res['passiveDesc'], color=0x935c9d)
-    elif res['rarity'] == 3:
-        embeded = discord.Embed(title="{}    ★★★".format(res['name']), description=res['passiveDesc'], color=0x5d839a)
-    elif res['rarity'] == 2:
-        embeded = discord.Embed(title="{}    ★★".format(res['name']), description=res['passiveDesc'], color=0x5d8771)
-    else:
-        embeded = discord.Embed(title="{}    ★".format(res['name']), description=res['passiveDesc'], color=0x7f7d81)
+    embeded = discord.Embed(title="{}    {}".format(res['name'], bulk.rarity_dict[res['rarity']]), description=res['passiveDesc'], color=bulk.colors_dict[res['rarity']])
     
     if res['name']in w2:
         weapons = res['name'].replace("'s ", "s_").lower()
@@ -324,12 +233,7 @@ async def artifacts(ctx, *, arg):
     r = requests.get("https://genshin.jmp.blue/artifacts/{}".format(arg)).text
     res = json.loads(r)
 
-    if res['max_rarity'] == 5:
-        embeded = discord.Embed(title="{}    ★★★★★".format(res['name']), color=0xd49548)
-    elif res['max_rarity'] == 4:
-        embeded = discord.Embed(title="{}    ★★★★".format(res['name']), color=0x935c9d)
-    else:
-        embeded = discord.Embed(title="{}    ★★★".format(res['name']), color=0x5d839a)
+    embeded = discord.Embed(title="{}    {}".format(res['name'], bulk.rarity_dict[res['max_rarity']]), color=bulk.colors_dict[res['max_rarity']])
 
     if res['name'] in a1:
         artifacts = res['name'].replace("'s ", "s_").lower()
@@ -355,22 +259,9 @@ async def nations(ctx, *, arg):
     r = requests.get("https://genshin.jmp.blue/nations/{}".format(arg)).text
     res = json.loads(r)
 
-    if res['name'] == "Inazuma":
-        embeded = discord.Embed(title="{}".format(res['name']), description=bulk.inazuma, color=0xb38dc1)
-        embeded.set_thumbnail(url=links.ina)
-        embeded.set_image(url=links.ina_big)
-    elif res['name'] == "Liyue":
-        embeded = discord.Embed(title="{}".format(res['name']), description=bulk.liyue, color=0xf2b723)
-        embeded.set_thumbnail(url=links.liy)
-        embeded.set_image(url=links.liy_big)
-    elif res['name'] == "Mondstadt":
-        embeded = discord.Embed(title="{}".format(res['name']), description=bulk.mondstadt, color=0x71c2a7)
-        embeded.set_thumbnail(url=links.mon)
-        embeded.set_image(url=links.mon_big)
-    else:
-        embeded = discord.Embed(title="{}".format(res['name']), description=bulk.sumeru, color=0x9cc928)
-        embeded.set_thumbnail(url=links.sum)
-        embeded.set_image(url=links.sum_big)
+    embeded = discord.Embed(title="{}".format(res['name']), description=bulk.nations_dict[res['name']], color=bulk.colors_dict[res['element']])
+    embeded.set_thumbnail(url=links.nation_icon[res['name']])
+    embeded.set_image(url=links.nation_img[res['name']])
 
     embeded.add_field(name="Element", value=res['element'], inline=True)
     embeded.add_field(name="Archon", value=res['archon'], inline=True)
@@ -384,54 +275,29 @@ async def elements(ctx, *, arg):
     r = requests.get("https://genshin.jmp.blue/elements/{}".format(arg)).text
     res = json.loads(r)
 
-    if res['name'] == "Anemo":
-        embeded = discord.Embed(title="{}".format(res['name']), description=bulk.anemo, color=0x71c2a7)
-        embeded.set_thumbnail(url=links.ane)
-        
-    elif res['name'] == "Cryo":
-        embeded = discord.Embed(title="{}".format(res['name']), description=bulk.cryo, color=0xa4d6e3)
-        embeded.set_thumbnail(url=links.cry)
-
-    elif res['name'] == "Dendro":
-        embeded = discord.Embed(title="{}".format(res['name']), description=bulk.dendro, color=0x9cc928)
-        embeded.set_thumbnail(url=links.den)
-
-    elif res['name'] == "Electro":
-        embeded = discord.Embed(title="{}".format(res['name']), description=bulk.electro, color=0xb38dc1)
-        embeded.set_thumbnail(url=links.ele)
-
-    elif res['name'] == "Geo":
-        embeded = discord.Embed(title="{}".format(res['name']), description=bulk.geo, color=0xf2b723)
-        embeded.set_thumbnail(url=links.geo)
-
-    elif res['name'] == "Hydro":
-        embeded = discord.Embed(title="{}".format(res['name']), description=bulk.hydro, color=0x5fc1f1)
-        embeded.set_thumbnail(url=links.hyd)
-
-    else:
-        embeded = discord.Embed(title="{}".format(res['name']), description=bulk.pyro, color=0xea7838)
-        embeded.set_thumbnail(url=links.pyr)
+    embeded = discord.Embed(title="{}".format(res['name']), description=bulk.elements_dict[res['name']], color=bulk.colors_dict[res['name']])
+    embeded.set_thumbnail(url=links.ele_icon[res['name']])
 
     for i in res['reactions']:
             embeded.add_field(name="{} - {}".format(i['name'], i['elements']), value=i['description'], inline = False)
 
     if res['name'] == "Hydro":
-        embeded.add_field(name="Bloom - ['Dendro']", value=bulk.bloom, inline = False)
-        embeded.add_field(name="Hyperbloom - ['Dendro', 'Electro']", value=bulk.hyperbloom, inline = False)
-        embeded.add_field(name="Burgeon - ['Dendro', 'Pyro']", value=bulk.burgeon, inline = False)
+        embeded.add_field(name="Bloom - ['Dendro']", value=bulk.elements_dict["Bloom"], inline = False)
+        embeded.add_field(name="Hyperbloom - ['Dendro', 'Electro']", value=bulk.elements_dict["Hyperbloom"], inline = False)
+        embeded.add_field(name="Burgeon - ['Dendro', 'Pyro']", value=bulk.elements_dict["Burgeon"], inline = False)
 
     if res['name'] == "Pyro":
-        embeded.add_field(name="Burgeon - ['Dendro', 'Hydro']", value=bulk.burgeon, inline = False)
+        embeded.add_field(name="Burgeon - ['Dendro', 'Hydro']", value=bulk.elements_dict["Burgeon"], inline = False)
     
     if res['name'] == "Electro":
-        embeded.add_field(name="Hyperbloom - ['Dendro', 'Hydro']", value=bulk.hyperbloom, inline = False)
-        embeded.add_field(name="Catalyze - ['Dendro']", value=bulk.catalyze, inline = False)
+        embeded.add_field(name="Hyperbloom - ['Dendro', 'Hydro']", value=bulk.elements_dict["Hyperbloom"], inline = False)
+        embeded.add_field(name="Catalyze - ['Dendro']", value=bulk.elements_dict["Catalyze"], inline = False)
 
     if res['name'] == "Dendro":
-        embeded.add_field(name="Bloom - ['Hydro']", value=bulk.bloom, inline = False)
-        embeded.add_field(name="Hyperbloom - ['Hydro', 'Electro']", value=bulk.hyperbloom, inline = False)
-        embeded.add_field(name="Burgeon - ['Hydro', 'Pyro']", value=bulk.burgeon, inline = False)
-        embeded.add_field(name="Catalyze - ['Electro']", value=bulk.catalyze, inline = False)
+        embeded.add_field(name="Bloom - ['Hydro']", value=bulk.elements_dict["Bloom"], inline = False)
+        embeded.add_field(name="Hyperbloom - ['Hydro', 'Electro']", value=bulk.elements_dict["Hyperbloom"], inline = False)
+        embeded.add_field(name="Burgeon - ['Hydro', 'Pyro']", value=bulk.elements_dict["Burgeon"], inline = False)
+        embeded.add_field(name="Catalyze - ['Electro']", value=bulk.elements_dict["Catalyze"], inline = False)
     
     await ctx.send(embed=embeded)
     
@@ -442,20 +308,8 @@ async def boss(ctx, *, arg):
     res = json.loads(r)
 
     embeded = discord.Embed(title=res['name'], description=res['description'])
-
-    if res['name'] == "Magatsu Mitake Narukami No Mikoto":
-        embeded.set_thumbnail(url=links.shogun)  
-    elif res['name'] == "Lupus Boreas":
-        embeded.set_thumbnail(url=links.andrius)
-    elif res['name'] == "Childe":
-        embeded.set_thumbnail(url=links.childe)
-    elif res['name'] == "La Signora":
-        embeded.set_thumbnail(url=links.signora)
-    elif res['name'] == "Stormterror":
-        embeded.set_thumbnail(url=links.dvalin)
-    elif res['name'] == "Azhdaha":
-        embeded.set_thumbnail(url=links.azhdaha)
-
+    embeded.set_thumbnail(url=links.weekly_icon[res['name']])
+    
     for i in res['drops']:
         embeded.add_field(name="{}    ★★★★★".format(i['name']), value="• From: {}".format(i['source']), inline = False)
 
@@ -469,35 +323,36 @@ async def enemy(ctx, *, arg):
     r = requests.get(links.enemies.format(arg)).text
     res = json.loads(r)
 
-    embeded = discord.Embed(title=res['name'], description=res['description'])
-    
+    if res['name'] in bulk.enemy_dict:
+        embeded = discord.Embed(title=res['name'], description=bulk.enemy_dict[res['name']])
+    else:
+        embeded = discord.Embed(title=res['name'], description=res['description'])
+
+    embeded.set_thumbnail(url=links.ene_img[res['name']])
     embeded.add_field(name="Region", value=res['region'], inline=True)
     embeded.add_field(name="Type", value=res['type'], inline=True)
+
     if res['name'] == "Fatui Cicin Mage":
         embeded.add_field(name="Elements", value=res['element'], inline=True)
     else:
         embeded.add_field(name="Elements", value=res['elements'], inline=True)
 
-       
     if "drops" in res:
         if res['drops'] != "None":
             for i in res['drops']:
-                if i['rarity'] == 4:
-                    embeded.add_field(name=i['name'], value="• Rarity: ★★★★\n• Minimum Level: {}".format(i['minimum-level']), inline=False)
-                elif i['rarity'] == 3:
-                    embeded.add_field(name=i['name'], value="• Rarity: ★★★\n• Minimum Level: {}".format(i['minimum-level']), inline=False)
-                elif i['rarity'] == 2:
-                    embeded.add_field(name=i['name'], value="• Rarity: ★★\n• Minimum Level: {}".format(i['minimum-level']), inline=False)
-                else:
-                    embeded.add_field(name=i['name'], value="• Rarity: ★\n• Minimum Level: {}".format(i['minimum-level']), inline=False)
+                embeded.add_field(name=i['name'], value="• Rarity: {}\n• Minimum Level: {}".format(bulk.rarity_dict[i['rarity']], i['minimum-level']), inline=False)
     
     if "artifacts" in res:
         for i in res['artifacts']:
             embeded.add_field(name=i['name'], value="• Set: {}".format(i['set']), inline=False)
 
     if "descriptions" in res:
-        for i in res['descriptions']:
-            embeded.add_field(name=i['name'], value=i["description"], inline=False)
+        if res['name'] == "The Eremite":
+            for i in res['descriptions']:
+                embeded.add_field(name=i['name'], value="A member of a loosely-organized mercenary corps from the golden desert sands.", inline=False)
+        else:
+            for i in res['descriptions']:
+                embeded.add_field(name=i['name'], value=i["description"], inline=False)
 
     if "elemental-descriptions" in res:
         for i in res['elemental-descriptions']:
