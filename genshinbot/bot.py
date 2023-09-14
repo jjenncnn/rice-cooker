@@ -364,4 +364,48 @@ async def enemy(ctx, *, arg):
 
     await ctx.send(embed=embeded)
 
+@bot.command()
+async def food(ctx, *, arg):
+    arg = arg.replace(" ", "-").lower()
+    r = requests.get(links.food).text
+    res = json.loads(r)
+
+    if res[arg]['name'] == "Invigorating Kitty Meal":
+        embeded = discord.Embed(title="{}    {}".format(res[arg]['name'], bulk.rarity_dict[res[arg]['rarity']]), description=bulk.kitty_meal, color=bulk.colors_dict[res[arg]['rarity']])
+    else:
+        embeded = discord.Embed(title="{}    {}".format(res[arg]['name'], bulk.rarity_dict[res[arg]['rarity']]), description=res[arg]['description'], color=bulk.colors_dict[res[arg]['rarity']])
+    if res[arg]['name'] in links.food_p1:
+        embeded.set_thumbnail(url=links.food_img1.format(links.food_p1[res[arg]['name']]))
+    else:
+        embeded.set_thumbnail(url=links.food_img2.format(links.food_p2[res[arg]['name']]))
+    if "proficiency" in res[arg]:
+        embeded.add_field(name="Proficiency", value=res[arg]['proficiency'], inline=True)
+    embeded.add_field(name="Type", value=res[arg]['type'], inline=True)
+    embeded.add_field(name="Effect", value=res[arg]['effect'], inline=False)
+    if res[arg]['hasRecipe'] == True:
+        recipe_str = ""
+        for j in res[arg]['recipe']:
+            recipe_str += "\- {} {}\n".format(j['quantity'], j['item'])
+            
+        embeded.add_field(name="Recipe", value=recipe_str, inline=False)
+
+    await ctx.send(embed=embeded)
+
+@bot.command()
+async def potion(ctx, *, arg):
+    arg = arg.replace(" ", "-").lower()
+    r = requests.get(links.potion).text
+    res = json.loads(r)
+
+    embeded = discord.Embed(title="{}    {}".format(res[arg]['name'], bulk.rarity_dict[res[arg]['rarity']]), description=bulk.potion_desc[res[arg]['name']], color=bulk.colors_dict[res[arg]['rarity']])
+    embeded.set_thumbnail(url=links.potion_img.format(links.potion_dict[res[arg]['name']]))
+    embeded.add_field(name="Effect", value=res[arg]['effect'], inline=False)
+    crafting_str = ""
+    for j in res[arg]['crafting']:
+        crafting_str += "\- {} {}\n".format(j['quantity'], j['item'])
+            
+    embeded.add_field(name="Crafting", value=crafting_str, inline=False)
+
+    await ctx.send(embed=embeded)
+
 bot.run(TOKEN)

@@ -123,3 +123,22 @@ rarity_dict = {5: "★★★★★", 4: "★★★★", 3: "★★★", 2: "★�
 
 colors_dict = {5: 0xd49548, 4: 0x935c9d, 3: 0x5d839a, 2: 0x5d8771, 1: 0x7f7d81, 
                "Pyro": 0xea7838, "Cryo": 0xa4d6e3, "Electro": 0xb38dc1, "Geo": 0xf2b723, "Dendro": 0x9cc928, "Hydro": 0x5fc1f1, "Anemo": 0x71c2a7}
+
+#********CONSUMABLES********
+kitty_meal = "This main dish looks rather cute. The simple methodology used to make it has maximized flavor retention in its ingredients. Even cats who usually pay humdrum humanity little mind will surely come running over when they catch a whiff of this. Uh, wait a moment. Was this supposed to attract dogs, too?"
+
+potion_desc = {"Flaming Essential Oil": "Grants greater affinity for Pyro, boosting Pyro DMG.\nIt is made of materials that gestate Pyro, which serves to draw in Pyro energy more effectively. It also makes the user more fired-up and passionate.", 
+               "Streaming Essential Oil": "Grants greater affinity for Hydro, boosting Hydro DMG.\nIt's a slippery medicine for external use, able to better channel Hydro energy. It has a subtle fragrance.", 
+               "Frosting Essential Oil": "Grants greater affinity for Cryo, boosting Cryo DMG.\nIt has a chilling sensation when applied, and helps one to better channel Cryo energy. It also helps to keep you cool-headed and calm.",
+               "Gushing Essential Oil": "Grants greater affinity for Anemo, boosting Anemo DMG.\nIt has a fragrant smell. It is said that using it during your travels will make you walk as if you're riding on the wind.", 
+               "Shocking Essential Oil": "Grants greater affinity for Electro, boosting Electro DMG.\nIt induces a tingling sensation on the skin and renders the user better able to better channel Electro energy — but comes with a risk of causing an electrical fire that would definitely ruin your perfect hair.", 
+               "Unmoving Essential Oil": "Grants greater affinity for Geo, boosting Geo DMG.\nYou can feel the fine Geo pellets within when applied. It's said to help with physical injuries.", 
+               "Forest Essential Oil": "Grants greater affinity for Dendro, boosting Dendro DMG.\nIt's a nourishing external medicine that promotes growth of plants, able to better channel Dendro energy.", 
+               "Heatshield Potion": "A miraculous potion that boosts Pyro RES and makes one able to withstand high heat. \nIt works not by cooling the body, but by helping the body acclimate to high temperatures.",
+               "Desiccant Potion": "A kind of potion that boosts Hydro RES and makes one able to withstand highly humid environments. \nIt is said to act like a desiccant and be highly effective at keeping items dry. It can also be ingested for the same effect.",
+               "Frostshield Potion": "A miraculous potion that boosts Cryo RES and makes one able to withstand extreme cold. \nInduces a chilling sensation when drank, but once this sensation spreads throughout the body, the feeling of being cold disappears.",
+               "Windbarrier Potion": "A mysterious potion that boosts Anemo RES and makes one able to withstand strong winds. \nIt works wonders for adventurers out in the world and is even said to keep the cold away.",
+               "Insulation Potion": "A potion that boosts Electro RES and keeps one from getting electro-shocked. Induces a tingling sensation when drank. \nIt is said to work by filling the body with inversely charged electrical energy, which counteracts the effect of Electro damage.",
+               "Dustproof Potion": "A potion that boosts Geo RES and keeps one from getting bothered by sand and dust. It has a strange taste not unlike that of magnets. \nIt keeps a traveler clean from all the sand and dust out there.",
+               "Dendrocide Potion": "A potion that boosts Dendro RES and suppresses the growth of plants. Rather than killing the plants, it puts them in deep hibernation. \nIt's also said to be good for the body if ingested.", 
+}
