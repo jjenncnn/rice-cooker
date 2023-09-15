@@ -11,6 +11,9 @@ potion = "https://genshin.jmp.blue/consumables/potions"
 food_img1 = "https://api.ambr.top/assets/UI/UI_ItemIcon_Recipe_{}.png"
 food_img2 = "https://api.ambr.top/assets/UI/UI_ItemIcon_{}.png"
 potion_img = "https://api.ambr.top/assets/UI/UI_ItemIcon_{}.png"
+materials = "https://genshin.jmp.blue/materials/{}"
+mats_img = "https://paimon.moe/images/items/{}.png"
+gem_img = "https://api.ambr.top/assets/UI/UI_ItemIcon_{}.png"
 
 nation_icon = {"Inazuma": "https://static.wikia.nocookie.net/gensin-impact/images/9/9e/Emblem_Inazuma.png/revision/latest?cb=20230127155005", 
                 "Liyue": "https://genshin.honeyhunterworld.com/img/acat_5.webp", 
@@ -334,4 +337,38 @@ potion_dict = {"Unmoving Essential Oil": 111018,
               "Windbarrier Potion": 111009,
               "Dendrocide Potion": 111012,
               "Forest Essential Oil": 111019,
+}
+
+ca_img = {"Vayuda Turquoise Sliver": 104151, 
+     "Vayuda Turquoise Fragment": 104152, 
+     "Vayuda Turquoise Chunk": 104153, 
+     "Vayuda Turquoise Gemstone": 104154, 
+     "Shivada Jade Sliver": 104161, 
+     "Shivada Jade Fragment": 104162, 
+     "Shivada Jade Chunk": 104163, 
+     "Shivada Jade Gemstone": 104164, 
+     "Vajrada Amethyst Sliver": 104141, 
+     "Vajrada Amethyst Fragment": 104142, 
+     "Vajrada Amethyst Chunk": 104143, 
+     "Vajrada Amethyst Gemstone": 104144,
+     "Nagadus Emerald Sliver": 104131, 
+     "Nagadus Emerald Fragment": 104132, 
+     "Nagadus Emerald Chunk": 104133, 
+     "Nagadus Emerald Gemstone": 104134,
+     "Prithiva Topaz Sliver": 104171, 
+     "Prithiva Topaz Fragment": 104172,
+     "Prithiva Topaz Chunk": 104173,
+     "Prithiva Topaz Gemstone": 104174,
+     "Varunada Lazurite Sliver": 104121,
+     "Varunada Lazurite Fragment": 104122,
+     "Varunada Lazurite Chunk": 104123,
+     "Varunada Lazurite Gemstone": 104124,
+     "Agnidus Agate Sliver": 104111,
+     "Agnidus Agate Fragment": 104112,
+     "Agnidus Agate Chunk": 104113,
+     "Agnidus Agate Gemstone": 104114,
+     "Brilliant Diamond Sliver": 104101,
+     "Brilliant Diamond Fragment": 104102,
+     "Brilliant Diamond Chunk": 104103,
+     "Brilliant Diamond Gemstone": 104104,
 }

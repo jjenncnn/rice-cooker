@@ -408,4 +408,56 @@ async def potion(ctx, *, arg):
 
     await ctx.send(embed=embeded)
 
+@bot.command()
+async def bm(ctx, *, arg):
+    arg = arg.replace(" ", "-").lower()
+    r = requests.get(links.materials.format("boss-material")).text
+    res = json.loads(r)
+    ldash = res[arg]['name'].replace(" ", "_").replace("'", "").lower()
+    
+    embeded = discord.Embed(title="{}    ★★★★".format(res[arg]['name']), description=bulk.bm[res[arg]['name']], color=bulk.colors_dict[4])
+    embeded.set_thumbnail(url=links.mats_img.format(ldash))
+    embeded.add_field(name="Source", value=res[arg]['source'], inline=True)
+    embeded.add_field(name="Characters", value=res[arg]['characters'], inline=True)
+
+    await ctx.send(embed=embeded)
+    
+@bot.command()
+async def ca(ctx, arg1, arg2):
+    arg2 = arg2.replace(" ", "-").lower()
+    r = requests.get(links.materials.format("character-ascension")).text
+    res = json.loads(r)
+    rock = ""
+    source_list = ""
+
+    if "sliver" in arg2:
+        rock = "sliver"
+    elif "fragment" in arg2:
+        rock = "fragment"
+    elif "chunk" in arg2:
+        rock = "chunk"
+    else:    
+        rock = "gemstone"
+
+    embeded = discord.Embed(title="{}    {}".format(res[arg1][rock]['name'], bulk.rarity_dict[res[arg1][rock]['rarity']]), description=bulk.ca[res[arg1][rock]['name']], color=bulk.colors_dict[res[arg1][rock]['rarity']])
+    embeded.set_thumbnail(url=links.gem_img.format(links.ca_img[res[arg1][rock]['name']]))
+    for i in res[arg1][rock]['sources']:
+        source_list += "\- {}\n".format(i)
+    embeded.add_field(name="Sources", value=source_list, inline=False)
+
+    await ctx.send(embed=embeded)
+        
+@bot.command()
+async def ce(ctx, *, arg):
+    arg = arg.replace(" ", "-").lower()
+    r = requests.get(links.materials.format("character-experience")).text
+    res = json.loads(r)
+    ldash = res[arg]['name'].replace(" ", "_").replace("'", "").lower()
+
+    embeded = discord.Embeded(title="{}    {}".format(res[arg]['name']).format(res[arg]['rarity']), description=bulk.ce[res[arg]['name']], color=bulk.colors_dict['rarity'])
+    embeded.set_thumbnail(url=links.mats_img.format(ldash))
+    embeded.add_field(name="Experience", value=res[arg]['experience'], inline=True)
+
+    await ctx.send(embed=embeded)
+
 bot.run(TOKEN)
