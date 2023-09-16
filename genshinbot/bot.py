@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 from discord.ext import commands
 import bulk 
 import links
+import string
 
 load_dotenv()
 TOKEN = os.environ.get("DISCORD_BOT")
@@ -25,6 +26,9 @@ a1 = ["Defender's Will", "Gladiator's Finale", "Nymph's Dream", "Shimenawa's Rem
       "Wanderer's Troupe"]
 a2 = ["Prayers for Destiny", "Prayers for Illumination", "Prayers for Wisdom", "Prayers to Springtime", 
       "Sacrifieur to the Firmament"]
+
+c1 = ["hilichurl-horns", "ley-line", "bone-shards", "mist-grass", "fatui-knives", "chaos-parts"]
+c2 = ["slime", "hilichurl-masks", "hilichurl-arrowheads", "samachurl-scrolls", "treasure-hoarder-insignias", "fatui-insignias", "whopperflower-nectar"]
 
 @bot.event
 async def on_ready():
@@ -452,11 +456,106 @@ async def ce(ctx, *, arg):
     arg = arg.replace(" ", "-").lower()
     r = requests.get(links.materials.format("character-experience")).text
     res = json.loads(r)
-    ldash = res[arg]['name'].replace(" ", "_").replace("'", "").lower()
 
-    embeded = discord.Embeded(title="{}    {}".format(res[arg]['name']).format(res[arg]['rarity']), description=bulk.ce[res[arg]['name']], color=bulk.colors_dict['rarity'])
-    embeded.set_thumbnail(url=links.mats_img.format(ldash))
-    embeded.add_field(name="Experience", value=res[arg]['experience'], inline=True)
+    if arg == "wanderer's-advice":
+        embeded = discord.Embed(title="{}    {}".format(res['items'][0]['name'], bulk.rarity_dict[res['items'][0]['rarity']]), description=bulk.ce[res['items'][0]['name']], color=bulk.colors_dict[res['items'][0]['rarity']])
+        embeded.set_thumbnail(url=links.mats_img.format(links.ce_img[res['items'][0]['name']]))
+        embeded.add_field(name="Experience", value=res['items'][0]['experience'], inline=False)
+    elif arg == "adventurer's-experience":
+        embeded = discord.Embed(title="{}    {}".format(res['items'][1]['name'], bulk.rarity_dict[res['items'][1]['rarity']]), description=bulk.ce[res['items'][1]['name']], color=bulk.colors_dict[res['items'][1]['rarity']])
+        embeded.set_thumbnail(url=links.mats_img.format(links.ce_img[res['items'][1]['name']]))
+        embeded.add_field(name="Experience", value=res['items'][1]['experience'], inline=False)
+    else:
+        embeded = discord.Embed(title="{}    {}".format(res['items'][2]['name'], bulk.rarity_dict[res['items'][2]['rarity']]), description=bulk.ce[res['items'][2]['name']], color=bulk.colors_dict[res['items'][2]['rarity']])
+        embeded.set_thumbnail(url=links.mats_img.format(links.ce_img[res['items'][2]['name']]))
+        embeded.add_field(name="Experience", value=res['items'][2]['experience'], inline=False)
+
+
+    await ctx.send(embed=embeded)
+
+@bot.command()
+async def ci(ctx, *, arg):
+    arg = arg.replace(" ", "-").lower()
+    r = requests.get(links.materials.format("cooking-ingredients")).text
+    res = json.loads(r)
+    rare = 1
+    source_list = ""
+    if 'rarity' in res[arg]:
+        rare = res[arg]['rarity']
+
+    embeded = discord.Embed(title="{}    {}".format(res[arg]['name'], bulk.rarity_dict[rare]), description=res[arg]['description'], color=bulk.colors_dict[rare])
+    embeded.set_thumbnail(url=links.mats_img.format(links.ci_img[res[arg]['name']]))
+    for i in res[arg]['sources']:
+        source_list += "\- {}\n".format(i)
+    embeded.add_field(name="Sources", value=source_list, inline=False)
+
+
+    await ctx.send(embed=embeded)
+
+@bot.command()
+async def coa(ctx, arg1, arg2):
+    arg1 = arg1.replace(" ", "-").lower()
+    arg2 = arg2.replace(" ", "-").lower()
+    r = requests.get(links.materials.format("common-ascension")).text
+    res = json.loads(r)
+    char = ""
+    sour = ""
+
+    if arg2 in bulk.coa2_dict:
+        co = res[arg1]['items'][bulk.coa2_dict[arg2]]['name']
+        embeded = discord.Embed(title="{}    {}".format(co, bulk.rarity_dict[res[arg1]['items'][bulk.coa2_dict[arg2]]['rarity']]), description=bulk.coa_desc[co], color=bulk.colors_dict[res[arg1]['items'][bulk.coa2_dict[arg2]]['rarity']])
+        embeded.set_thumbnail(url=links.mats_img.format(links.coa_img[co]))
+
+    if arg1 in c1:
+        for i in res[arg1]['weapons']:
+            char += "\• {}\n".format(string.capwords(i))
+        embeded.add_field(name="Weapons", value=char, inline=True)
+    elif arg1 in c2:
+        for i in res[arg1]['characters']:
+            char += "\• {}\n".format(string.capwords(i))
+        embeded.add_field(name="Characters", value=char, inline=True)
+        
+    for j in res[arg1]['sources']:
+        sour += "\• {}\n".format(j)
+    embeded.add_field(name="Sources", value=sour, inline=True)
+
+    await ctx.send(embed=embeded)
+
+@bot.command()
+async def ls(ctx, arg1, arg2):
+    arg2 = arg2.replace(" ", "-").lower()
+    r = requests.get(links.materials.format("local-specialties")).text
+    res = json.loads(r)
+    formatting = res[arg1][bulk.ls[arg2]]
+    char_list = ""
+
+    embeded = discord.Embed(title="{}".format(formatting['name']), description=bulk.ls_desc[formatting['name']], color=bulk.colors_dict[1])
+    embeded.set_thumbnail(url=links.mats_img.format(links.ls_img[formatting['name']]))
+    for i in formatting['characters']:
+        char_list += "\- {}\n".format(string.capwords(i))
+    embeded.add_field(name="Characters", value=char_list, inline=False)
+
+    await ctx.send(embed=embeded)
+
+@bot.command()
+async def tb(ctx, arg1, arg2):
+    arg2 = arg2.replace(" ", "-").lower()
+    r = requests.get(links.materials.format("talent-book")).text
+    res = json.loads(r)
+    formatting = res[arg1]['items'][bulk.tb[arg2]]
+    char_list = ""
+    ava_list = ""
+    source = res[arg1]['source'].replace("-", " ")
+
+    embeded = discord.Embed(title="{}    {}".format(formatting['name'], bulk.rarity_dict[formatting['rarity']]), description=bulk.tb_desc[arg2], color=bulk.colors_dict[formatting['rarity']])
+    embeded.set_thumbnail(url=links.mats_img.format(links.tb_img[arg2]))
+    for i in res[arg1]['availability']:
+        ava_list += "\- {}\n".format(string.capwords(i))
+    embeded.add_field(name="Availability", value=ava_list, inline=True)
+    embeded.add_field(name="Source", value=string.capwords(source), inline=True)
+    for j in res[arg1]['characters']:
+        char_list += "\- {}\n".format(string.capwords(j))
+    embeded.add_field(name="Characters", value=char_list, inline=False)
 
     await ctx.send(embed=embeded)
 
