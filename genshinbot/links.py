@@ -645,6 +645,17 @@ wa_img = {"Tile of Decarabian's Tower": 114001,
            "Olden Days of Scorching Might": 114048
 }
 
-domain_img = {
-      
+domain_img = {"Cecilia Garden": "https://static.wikia.nocookie.net/gensin-impact/images/f/fb/Domain_Cecilia_Garden.png/revision/latest?cb=20201221031347",
+              "City of Gold": "https://static.wikia.nocookie.net/gensin-impact/images/4/49/Domain_City_of_Gold.png/revision/latest?cb=20221228013103",
+              "Clear Pool and Mountain Cavern": "https://static.wikia.nocookie.net/gensin-impact/images/b/b6/Domain_Clear_Pool_and_Mountain_Cavern.png/revision/latest?cb=20201221031314",
+              "Domain of Guyun": "https://static.wikia.nocookie.net/gensin-impact/images/e/e3/Domain_of_Guyun.png/revision/latest?cb=20201221031030",
+              "Hidden Palace of Lianshan Formula": "https://static.wikia.nocookie.net/gensin-impact/images/6/6f/Domain_Hidden_Palace_of_Lianshan_Formula.png/revision/latest?cb=20201221031402",
+              "Midsummer Courtyard": "https://static.wikia.nocookie.net/gensin-impact/images/2/28/Domain_Midsummer_Courtyard.png/revision/latest?cb=20201221031727", 
+              "Momiji-Dyed Court": "https://static.wikia.nocookie.net/gensin-impact/images/5/59/Domain_Momiji-Dyed_Court.png/revision/latest?cb=20210723015927", 
+              "Peak of Vindagnyr": "https://static.wikia.nocookie.net/gensin-impact/images/a/af/Peak_of_Vindagnyr.png/revision/latest?cb=20220408051137", 
+              "Ridge Watch": "https://static.wikia.nocookie.net/gensin-impact/images/d/d4/Domain_Ridge_Watch.png/revision/latest?cb=20210428062805",
+              "Slumbering Court": "https://static.wikia.nocookie.net/gensin-impact/images/5/59/Domain_Momiji-Dyed_Court.png/revision/latest?cb=20210723015927",
+              "Spire of Solitary Enlightenment": "https://static.wikia.nocookie.net/gensin-impact/images/d/d8/Domain_Spire_of_Solitary_Enlightenment.png/revision/latest?cb=20220825231229",
+              "The Lost Valley": "https://static.wikia.nocookie.net/gensin-impact/images/c/cb/Domain_The_Lost_Valley.png/revision/latest?cb=20220330202530", 
+              "Valley of Remembrance": "https://static.wikia.nocookie.net/gensin-impact/images/5/53/Domain_Valley_of_Remembrance.png/revision/latest?cb=20201221031212"
 }

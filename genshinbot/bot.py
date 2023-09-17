@@ -637,6 +637,8 @@ async def domain(ctx, arg1, arg2=None, arg3=None):
         embeded = discord.Embed(title=res['name'], description=res['description'])
         embeded.add_field(name="Type", value=res['type'], inline=True)
         embeded.add_field(name="Location", value=res['location'], inline=True)
+        embeded.set_image(url=links.domain_img[res['name']])
+        embeded.set_thumbnail(url=links.nation_icon[res['nation']])
         for i in res['recommendedElements']:
             ele_list += "\- {}\n".format(i)
         embeded.add_field(name="Recommended Elements", value=ele_list, inline=True)
@@ -671,6 +673,8 @@ async def domain(ctx, arg1, arg2=None, arg3=None):
         embeded = discord.Embed(title=res['name'], description=res['description'])
         embeded.add_field(name="Type", value=res['type'], inline=True)
         embeded.add_field(name="Location", value=res['location'], inline=True)
+        embeded.set_image(url=links.domain_img[res['name']])
+        embeded.set_thumbnail(url=links.nation_icon[res['nation']])
         for i in res['recommendedElements']:
             ele_list += "\- {}\n".format(i)
         embeded.add_field(name="Recommended Elements", value=ele_list, inline=True)
