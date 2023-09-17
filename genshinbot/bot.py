@@ -559,4 +559,134 @@ async def tb(ctx, arg1, arg2):
 
     await ctx.send(embed=embeded)
 
+@bot.command()
+async def tbs(ctx, *, arg):
+    arg = arg.replace(" ", "-").lower()
+    r = requests.get(links.materials.format("talent-boss")).text
+    res = json.loads(r)
+    char_list = ""
+
+    embeded = discord.Embed(title="{}".format(res[arg]['name']), description=bulk.tbs_desc[res[arg]['name']], color=bulk.colors_dict[5])
+    embeded.set_thumbnail(url=links.mats_img.format(links.tbs_img[res[arg]['name']]))
+    for i in res[arg]['characters']:
+        char_list += "\- {}\n".format(string.capwords(i))
+    embeded.add_field(name="Used By", value=char_list, inline=False)
+
+    await ctx.send(embed=embeded)
+
+@bot.command()
+async def wa(ctx, arg1, arg2):
+    arg2 = arg2.replace(" ", "-").lower()
+    r = requests.get(links.materials.format("weapon-ascension")).text
+    res = json.loads(r)
+
+    weap = ""
+    avab = ""
+    sour = res[arg1]['source'].replace("-", " ")
+
+    if arg2 in bulk.wa:
+        co = res[arg1]['items'][bulk.wa[arg2]]['name']
+        embeded = discord.Embed(title="{}    {}".format(co, bulk.rarity_dict[res[arg1]['items'][bulk.wa[arg2]]['rarity']]), description=bulk.wa_desc[co], color=bulk.colors_dict[res[arg1]['items'][bulk.wa[arg2]]['rarity']])
+        embeded.set_thumbnail(url=links.mats_img.format(links.wa_img[co]))
+        
+    for i in res[arg1]['weapons']:
+        low = i.replace("-", " ")
+        weap += "\• {}\n".format(string.capwords(low))
+    embeded.add_field(name="Weapons", value=weap, inline=True)
+
+    for j in res[arg1]['availability']:
+        avab += "\• {}\n".format(string.capwords(j))
+    embeded.add_field(name="Availability", value=avab, inline=True)
+        
+    embeded.add_field(name="Source", value=string.capwords(sour), inline=True)
+
+    await ctx.send(embed=embeded)
+
+@bot.command()
+async def we(ctx, *, arg):
+    arg = arg.replace(" ", "-").lower()
+    r = requests.get(links.materials.format("weapon-experience")).text
+    res = json.loads(r)
+
+    if arg == "enhancement-ore":
+        embeded = discord.Embed(title="{}    {}".format(res['items'][0]['name'], bulk.rarity_dict[res['items'][0]['rarity']]), description=bulk.we_desc[arg], color=bulk.colors_dict[res['items'][0]['rarity']])
+        embeded.set_thumbnail(url=links.mats_img.format(links.we_img[arg]))
+        embeded.add_field(name="Experience", value=res['items'][0]['experience'], inline=True)
+        embeded.add_field(name="Source", value="Crafting", inline=True)
+    elif arg == "fine-enhancement-ore":
+        embeded = discord.Embed(title="{}    {}".format(res['items'][1]['name'], bulk.rarity_dict[res['items'][1]['rarity']]), description=bulk.we_desc[arg], color=bulk.colors_dict[res['items'][1]['rarity']])
+        embeded.set_thumbnail(url=links.mats_img.format(links.we_img[arg]))
+        embeded.add_field(name="Experience", value=res['items'][1]['experience'], inline=True)
+        embeded.add_field(name="Source", value="Crafting", inline=True)
+    else:
+        embeded = discord.Embed(title="{}    {}".format(res['items'][2]['name'], bulk.rarity_dict[res['items'][2]['rarity']]), description=bulk.we_desc[arg], color=bulk.colors_dict[res['items'][2]['rarity']])
+        embeded.set_thumbnail(url=links.mats_img.format(links.we_img[arg]))
+        embeded.add_field(name="Experience", value=res['items'][2]['experience'], inline=True)
+        embeded.add_field(name="Source", value="Crafting", inline=True)
+
+    await ctx.send(embed=embeded)
+
+@bot.command()
+async def domain(ctx, arg1, arg2=None, arg3=None):
+    arg1 = arg1.replace(" ", "-").lower()
+    r = requests.get(links.domains.format(arg1)).text
+    res = json.loads(r)
+    ele_list = ""
+
+    if res['type'] == "Forgery":
+        embeded = discord.Embed(title=res['name'], description=res['description'])
+        embeded.add_field(name="Type", value=res['type'], inline=True)
+        embeded.add_field(name="Location", value=res['location'], inline=True)
+        for i in res['recommendedElements']:
+            ele_list += "\- {}\n".format(i)
+        embeded.add_field(name="Recommended Elements", value=ele_list, inline=True)
+
+        if arg2 == "reqs":
+            for i in res['requirements']:
+                req_list = "\- Adventure Rank: {}\n\- Recommended Level: {}\n\- Leyline Disorder: {}".format(i['adventureRank'], i['recommendedLevel'], i['leyLineDisorder'])
+                embeded.add_field(name="Level: {}".format(i['level']), value=req_list, inline=False)
+
+        elif arg2 == "rewards":
+            for j in res['rewards'][bulk.days[arg3]]['details']:
+                rewards_list = "\- Adventure Experience: {}\n\- Companion Experience: {}\n\- Mora: {}\n".format(j['adventureExperience'], j['companionshipExperience'], j['mora'])
+                if "drops" not in j:
+                    for k in j['items']:
+                        rewards_list += "\- {}\n".format(k['name'])
+                else:
+                    for k in j['drops']:
+                        rewards_list += "\- {}\n".format(k['name'])
+                if arg3 == "mon" or arg3 =="thu":            
+                    embeded.add_field(name="Monday/Tuesday - Level: {}".format(j['level']), value=rewards_list, inline=False)
+    
+                elif arg3 == "tue" or arg3 == "fri":
+                    embeded.add_field(name="Tuesday/Friday - Level: {}".format(j['level']), value=rewards_list, inline=False)
+
+                elif arg3 == "wed" or arg3 == "sat":
+                    embeded.add_field(name="Wednesday/Saturday - Level: {}".format(j['level']), value=rewards_list, inline=False)
+
+                elif arg3 == "sun":
+                    embeded.add_field(name="Sunday - Level: {}".format(j['level']), value=rewards_list, inline=False)
+
+    else:
+        embeded = discord.Embed(title=res['name'], description=res['description'])
+        embeded.add_field(name="Type", value=res['type'], inline=True)
+        embeded.add_field(name="Location", value=res['location'], inline=True)
+        for i in res['recommendedElements']:
+            ele_list += "\- {}\n".format(i)
+        embeded.add_field(name="Recommended Elements", value=ele_list, inline=True)
+
+        if arg2 == "reqs":
+            for i in res['requirements']:
+                req_list = "\- Adventure Rank: {}\n\- Recommended Level: {}\n\- Leyline Disorder: {}".format(i['adventureRank'], i['recommendedLevel'], i['leyLineDisorder'])
+                embeded.add_field(name="Level: {}".format(i['level']), value=req_list, inline=False)
+
+        elif arg2 == "rewards":
+            for j in res['rewards'][0]['details']:
+                rewards_list = "\- Adventure Experience: {}\n\- Companion Experience: {}\n\- Mora: {}\n".format(j['adventureExperience'], j['companionshipExperience'], j['mora'])
+                for k in j['drops']:
+                    rewards_list += "\- {}\n".format(k['name'])
+                embeded.add_field(name="Rewards - Level: {}".format(j['level']), value=rewards_list, inline=False)
+
+    await ctx.send(embed=embeded)
+
 bot.run(TOKEN)
